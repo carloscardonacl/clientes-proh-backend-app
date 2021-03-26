@@ -42,7 +42,7 @@ class ProductoClienteController extends Controller
                         PLG.Cum = P.Codigo_Cum
                         ) AS Precio_Orden,  ,
             
-           /*  IFNULL((SELECT Costo_Promedio  FROM Costo_Promedio WHERE Id_Producto = P.Id_Producto),"0") AS Costo, */
+         
             
             (SELECT AR.Id_Proveedor
             
