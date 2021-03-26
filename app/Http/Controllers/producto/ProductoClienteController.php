@@ -40,9 +40,9 @@ class ProductoClienteController extends Controller
                         INNER JOIN Lista_Ganancia LG ON LG.Id_Lista_Ganancia = PLG.Id_Lista_Ganancia 
                         WHERE LG.Id_Lista_Ganancia = '.$cliente->Id_Lista_Ganancia.' AND
                         PLG.Cum = P.Codigo_Cum
-                        ) AS Precio_Orden,  ,
+                        ) AS Precio_Orden,  
             
-         
+           /*  IFNULL((SELECT Costo_Promedio  FROM Costo_Promedio WHERE Id_Producto = P.Id_Producto),"0") AS Costo, */
             
             (SELECT AR.Id_Proveedor
             
