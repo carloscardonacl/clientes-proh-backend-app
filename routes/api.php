@@ -28,4 +28,4 @@ Route::get('productos/cliente/{id}',[ProductoClienteController::class,'index']);
 
 Route::post('pre-orden',[PreOrdenPedidoController::class,'preOrden']);
 
-Route::post('orden-compra',[OrdenPedidoController::class,'store']);
+Route::post('orden-pedido',[OrdenPedidoController::class,'store']);

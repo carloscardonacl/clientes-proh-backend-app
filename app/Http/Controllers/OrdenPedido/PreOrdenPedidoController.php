@@ -18,7 +18,7 @@ class PreOrdenPedidoController extends Controller
     
         $cabecera = $data['cabecera'];
 
-        $grupos = GrupoEstiba::all()->toArray();
+        $grupos = GrupoEstiba::where('Orden_Pedido','Si')->get()->toArray();
 
         RemisionServices::armarRem( $grupos, $productos);
      
@@ -53,10 +53,7 @@ class PreOrdenPedidoController extends Controller
         
     }
    
-    public function armarRem(){
-        
-    }
-
+   
 }
 
 /* 

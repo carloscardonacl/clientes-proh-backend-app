@@ -40,7 +40,7 @@ class ProductoClienteController extends Controller
                         INNER JOIN Lista_Ganancia LG ON LG.Id_Lista_Ganancia = PLG.Id_Lista_Ganancia 
                         WHERE LG.Id_Lista_Ganancia = '.$cliente->Id_Lista_Ganancia.' AND
                         PLG.Cum = P.Codigo_Cum
-                        ) AS Precio, "" AS Precio_Orden,
+                        ) AS Precio_Orden,  ,
             
            /*  IFNULL((SELECT Costo_Promedio  FROM Costo_Promedio WHERE Id_Producto = P.Id_Producto),"0") AS Costo, */
             
@@ -54,7 +54,7 @@ class ProductoClienteController extends Controller
             
             IF(P.Gravado = "Si" , 19 , 0 ) AS Impuesto,
             0 AS Total,
-            "" AS Cantidad,
+            1 AS Cantidad,
             P.Cantidad_Presentacion,
             0 AS Cantidad_Remision
             
@@ -64,7 +64,7 @@ class ProductoClienteController extends Controller
             P.Codigo_Barras IS NOT NULL AND P.Estado="Activo" AND P.Codigo_Barras !="" AND
             (P.Embalaje NOT LIKE "MUESTRA MEDICA%" OR P.Embalaje IS NULL OR P.Embalaje="" )'.$condicion .' 
             GROUP BY P.Id_Producto
-            HAVING Precio AND Proveedor IS NOT NULL';
+            HAVING Precio_Orden AND Proveedor IS NOT NULL';
            
            $res = ['Data'=>DB::select($q),'Cod'=>'ok','Message'=>'Operación extosa'];
            return response()->json($res,200); 

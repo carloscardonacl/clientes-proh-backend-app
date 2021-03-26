@@ -74,7 +74,7 @@ class RemisionServices{
     }
 
     static function getInventario($idProducto,$idGrupo){
-        global $bodega;
+      
         $query = 'SELECT  I.Id_Inventario_Nuevo , I.Codigo_CUM, I.Lote, I.Id_Producto, I.Fecha_Vencimiento,
                     ( I.Cantidad - (I.Cantidad_Seleccionada + I.Cantidad_Apartada) ) AS Cantidad
                     FROM Inventario_Nuevo I
