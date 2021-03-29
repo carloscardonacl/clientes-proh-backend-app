@@ -23,6 +23,7 @@ return [
     | Here you may configure as many filesystem "disks" as you wish, and you
     | may even configure multiple disks of the same driver. Defaults have
     | been setup for each driver as an example of the required options.
+    protected $transferMode = FTP_BINARY;
     |
     | Supported Drivers: "local", "ftp", "sftp", "s3"
     |
@@ -38,7 +39,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
         ],
 
@@ -50,6 +51,14 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
+        ],
+
+        'ftp' => [
+            'driver' => 'ftp',
+            'host' => '181.225.73.37',
+            'username' => 'sigespro',
+            'password' => 'Proh2021*',
+            'root' => '/var/www/html/dev/images' // for example: /var/www/html/dev/images
         ],
 
     ],
