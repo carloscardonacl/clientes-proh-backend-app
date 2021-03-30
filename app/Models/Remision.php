@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Remision extends Model
 {
     use HasFactory;
+
+    use HasFactory;
+    protected $table = "Remision";
+    protected $primaryKey = "Id_Remision";
+
+    public $timestamps = false;
+
 }

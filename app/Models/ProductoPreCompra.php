@@ -10,5 +10,5 @@ class ProductoPreCompra extends Model
     use HasFactory;
     protected $table = "Producto_Pre_Compra";
     protected $primaryKey = "Id_Producto_Pre_Compra";
-    
+    public $timestamps = false;
 }

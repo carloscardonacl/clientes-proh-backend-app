@@ -11,6 +11,8 @@ class OrdenPedido extends Model
     protected $table = "Orden_Pedido";
     protected $primaryKey = "Id_Orden_Pedido";
 
+    public $timestamps = false;
+    
    
     public function productosOrden(){
         return $this->hasMany(Producto_Orden_Pedido::class,"Id_Orden_Pedido","Id_Orden_Pedido");

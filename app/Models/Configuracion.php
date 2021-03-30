@@ -4,59 +4,48 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Configuracion extends Model
 {
     use HasFactory;
     protected $table = 'Configuracion';
     protected $primaryKey = 'Id_Configuracion';
-
+    public $timestamps = false;
 
     
-    function prefijoConsecutivo($index){
-        $prop = "Prefijo_$index";
-        $oItem =  $this->
-        $prefijo= $this->$prop;
-
-        
-        return $prefijo;
+     function prefijoConsecutivo($index){
+        $prop = "Prefijo_$index";        
+        return  $this->$prop;
     }   
 
-    function guardarConsecutivoConfig($index,$consecutivo){
-
-        $oItem = new complex('Configuracion','Id_Configuracion',1);
-        $nc = $oItem->getData();
-        $oItem->$index = $consecutivo+=1;
-        $oItem->save();
+     function guardarConsecutivoConfig($index,$consecutivo){
         
-        unset($oItem);
-        
+        $this->$index = $consecutivo+=1;
+        $this->save();
+     
     }
 
-    function getConsecutivo($mod,$tipo_consecutivo) {
-        sleep(strval( rand(2, 8)));
-    # $query = "SELECT  MAX(Codigo)  AS Codigo FROM $mod ";
-        $query = "SELECT MAX(N.Codigo) AS Codigo FROM ( SELECT Codigo FROM $mod ORDER BY Id_$mod DESC LIMIT 10 )N ";
+     function getConsecutivo($mod,$tipo_consecutivo) {
+        // sleep(strval( rand(2, 8)));
+         $query = "SELECT MAX(N.Codigo) AS Codigo FROM ( SELECT Codigo FROM $mod ORDER BY Id_$mod DESC LIMIT 10 )N ";
+         $res = DB::select($query);
+         $res = $res[0];
+       
 
-        $oCon = new consulta();
-        $oCon->setQuery($query);
-        $res = $oCon->getData();
-        unset($oCon);
-        
         $prefijo = $this->prefijoConsecutivo($tipo_consecutivo);
-    
-        $NumeroCodigo=substr($res['Codigo'],strlen($prefijo)); 
+        $NumeroCodigo=substr($res->Codigo,strlen($prefijo)); 
+       
         $NumeroCodigo += 1;
         
         $cod = $prefijo . $NumeroCodigo ;
-
+        
         $query = "SELECT Id_$mod AS ID FROM $mod WHERE Codigo = '$cod'";
-        $oCon = new consulta();
-        $oCon->setQuery($query);
-        $res2 = $oCon->getData();
-        unset($oCon);
-
-        if($res2["ID"]){  
+      
+        $res2 = DB::select($query);
+        
+        $res2 = $res2 ? $res2[0] : $res2;
+        if($res2){  
             sleep(strval(rand(0,3)));
             $this->getConsecutivo($mod,$tipo_consecutivo);
         }
@@ -66,17 +55,17 @@ class Configuracion extends Model
         return $cod;
     }
 
-    function Consecutivo($index){
-        $oItem = new complex('Configuracion','Id_Configuracion',1);
-        $nc = $oItem->getData();
-        $consecutivo = number_format((INT) $oItem->$index,0,"","");
-        $oItem->$index= $consecutivo+1;
-        $oItem->save();
-        $num_cotizacion=$nc[$index];
-        unset($oItem);
-        
-        $cod = $nc["Prefijo_".$index].sprintf("%05d", $num_cotizacion);
-        
+     function Consecutivo($index){
+        $num_cotizacion=$this->$index;
+      
+        $consecutivo = number_format((INT) $this->$index,0,"","");
+        $this->$index = $consecutivo+1;
+        $this->save();
+     
+        $d = "Prefijo_".$index; 
+        $cod = $this->$d;
+        $cod.sprintf("%05d", $num_cotizacion);
+
         return $cod;
     } 
 

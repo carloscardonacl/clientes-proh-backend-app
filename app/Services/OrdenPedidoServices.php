@@ -15,8 +15,8 @@ class OrdenPedidoServices{
         $Orden->Fecha_Probable_Entrega = $cabecera['fecha_probable_entrega'];
         $Orden->Identificacion_Funcionario = $cabecera['Identificacion_Funcionario'];
         $Orden->Observaciones = $cabecera['observaciones'];
-        $Orden->Archivo_Compra_Cliente = $cabecera['Archivo_Compra_Cliente'];
-        $Orden->Orden_Compra_Cliente = $cabecera['ordenCompra'];
+      //  $Orden->Archivo_Compra_Cliente = $cabecera['Archivo_Compra_Cliente'];
+       // $Orden->Orden_Compra_Cliente = $cabecera['ordenCompra'];
         $Orden->Estado = 'Activa';
         $Orden->save();
         return $Orden->Id_Orden_Pedido;
