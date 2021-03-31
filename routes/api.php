@@ -1,31 +1,34 @@
 <?php
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\OrdenPedido\OrdenPedidoController;
 use App\Http\Controllers\OrdenPedido\PreOrdenPedidoController;
 use App\Http\Controllers\Producto\ProductoClienteController;
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+use App\Http\Auth\AuthController;
+use App\Http\Controllers\Agente\AgenteClienteController;
+use App\Http\Controllers\Cupo\FinanzaController;
+use Illuminate\Support\Facades\DB;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::middleware(['jwt', 'getRequest'])->group(function () {
 
-Route::get('productos/cliente/{id}',[ProductoClienteController::class,'index']);
+    Route::get('productos/cliente/{id}', [ProductoClienteController::class, 'index']);
 
+    Route::post('pre-orden', [PreOrdenPedidoController::class, 'preOrden']);
 
+    Route::post('orden-pedido', [OrdenPedidoController::class, 'store']);
 
-Route::post('pre-orden',[PreOrdenPedidoController::class,'preOrden']);
+    //Agentes clientes routes
+    Route::resource('agentes-clientes', AgenteClienteController::class)->names('agentes-clientes');
 
-Route::post('orden-pedido',[OrdenPedidoController::class,'store']);
+    //cartera cliente
+    Route::get('cliente-cupo', [FinanzaController::class, 'getCupo'])->name('cliente-cupo');
+    Route::get('cliente-cartera', [FinanzaController::class, 'getCartera'])->name('cliente-cartera');
+});
+
+Route::post('/login', [AuthController::class, 'login']);

@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Funcionario extends Model
 {
     use HasFactory;
+    protected $table = 'Funcionario';
+    protected $primaryKey = 'Identificacion_Funcionario';
+    public $timestamps = false;
 }
