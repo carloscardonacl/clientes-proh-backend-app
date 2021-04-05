@@ -38,7 +38,7 @@ if (!function_exists('getNameFile')) {
         try {
             $filename =  time() . '.' . $request->file('Avatar')->getClientOriginalExtension();
             $request->file('Avatar')->move(public_path() . "/$folder", $filename);
-            return  $filename;
+            return  '/' . $folder . '/' . $filename;
         } catch (\Throwable $th) {
             return response($th->getMessage());
         }

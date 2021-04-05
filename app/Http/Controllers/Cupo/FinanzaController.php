@@ -10,8 +10,19 @@ use stdClass;
 
 class FinanzaController extends Controller
 {
-    public function getCartera($limit = 10, $page = 1)
+    public function getCartera()
     {
+
+        $limit = 10;
+        $page = 1;
+
+        if (request()->has('limit')) {
+            $limit = request()->get('limit');
+        }
+
+        if (request()->has('page')) {
+            $page =  request()->get('page');
+        }
 
         $cliente = Auth::getUser()->Id_Cliente;
 
