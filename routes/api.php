@@ -9,6 +9,7 @@ use App\Http\Controllers\producto\ProductoClienteController;
 use App\Http\Auth\AuthController;
 use App\Http\Controllers\Agente\AgenteClienteController;
 use App\Http\Controllers\Cupo\FinanzaController;
+use App\Http\Controllers\Remision\RemisionController;
 use Illuminate\Support\Facades\DB;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
@@ -22,6 +23,7 @@ Route::middleware(['jwt', 'getRequest'])->group(function () {
     Route::post('pre-orden', [PreOrdenPedidoController::class, 'preOrden']);
 
     Route::resource('orden-pedido', OrdenPedidoController::class)->names('orden-pedido');
+    Route::resource('remision', RemisionController::class)->names('remision');
 
     //Agentes clientes routes
     Route::resource('agentes-clientes', AgenteClienteController::class)->names('agentes-clientes');

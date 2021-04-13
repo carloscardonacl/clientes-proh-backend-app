@@ -15,4 +15,8 @@ class Remision extends Model
 
     public $timestamps = false;
 
+    public function factura(){
+        return $this->belongsTo(FacturaVenta::class,"Id_Factura_Venta","Id_Factura_Venta");
+    }
+
 }
