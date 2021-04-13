@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\OrdenPedido;
 
 use App\Http\Controllers\Controller;
+use App\Models\Auth;
 use App\Models\GrupoEstiba;
+use App\Models\OrdenPedido;
 use App\Services\OrdenPedidoServices;
 use App\Services\PreCompraServices;
 use App\Services\RemisionServices;
@@ -75,5 +77,22 @@ class OrdenPedidoController extends Controller
         }
     }
 
+    public function index(){
+        $idAgente = Auth::getUser()->Id_Agentes_Cliente;
+        $idCliente = Auth::getUser()->Id_Cliente;
+        
+        $result = OrdenPedido::with([
+                                'remisiones' => function($query) {
+                                    $query->select('*');
+                                }
+                            ])
+                            ->where('Id_Agentes_Cliente',$idAgente)
+                            ->where('Id_Cliente',$idCliente)
+                            ->orderBy('Id_Orden_Pedido', 'DESC')
+                            ->get();  
+       
+        return response()->json(['Data' => $result, 'Cod' => 'ok', 'Message' => 'Operacion exitosa']);
+
+    }
  
 }

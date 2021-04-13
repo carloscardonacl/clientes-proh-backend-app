@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\OrdenPedido\OrdenPedidoController;
 use App\Http\Controllers\OrdenPedido\PreOrdenPedidoController;
-use App\Http\Controllers\Producto\ProductoClienteController;
+use App\Http\Controllers\producto\ProductoClienteController;
 use App\Http\Auth\AuthController;
 use App\Http\Controllers\Agente\AgenteClienteController;
 use App\Http\Controllers\Cupo\FinanzaController;
@@ -21,14 +21,17 @@ Route::middleware(['jwt', 'getRequest'])->group(function () {
 
     Route::post('pre-orden', [PreOrdenPedidoController::class, 'preOrden']);
 
-    Route::post('orden-pedido', [OrdenPedidoController::class, 'store']);
+    Route::resource('orden-pedido', OrdenPedidoController::class)->names('orden-pedido');
 
     //Agentes clientes routes
     Route::resource('agentes-clientes', AgenteClienteController::class)->names('agentes-clientes');
-
+    
     //cartera cliente
     Route::get('cliente-cupo', [FinanzaController::class, 'getCupo'])->name('cliente-cupo');
     Route::get('cliente-cartera', [FinanzaController::class, 'getCartera'])->name('cliente-cartera');
+
+    //Agentes clientes routes
+    
 });
 
 Route::post('/login', [AuthController::class, 'login']);
