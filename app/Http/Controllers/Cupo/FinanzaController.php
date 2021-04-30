@@ -22,7 +22,12 @@ class FinanzaController extends Controller
 
         if (request()->has('page')) {
             $page =  request()->get('page');
+            if ($page == 0) {
+                $page =  1;
+            }
         }
+
+        $var  =  ($page - 1) * $limit;
 
         $cliente = Auth::getUser()->Id_Cliente;
 
@@ -57,7 +62,7 @@ class FinanzaController extends Controller
                             GROUP BY MC.Id_Plan_Cuenta , MC.Documento
                             HAVING Neto_Factura != 0
                             ORDER BY MC.Fecha_Movimiento DESC
-                            LIMIT $limit OFFSET $page
+                            LIMIT $limit OFFSET  $var
         ");
 
 
