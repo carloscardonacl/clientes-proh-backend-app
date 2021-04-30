@@ -1,0 +1,1 @@
+Ignore los cambios de esta carpeta para no subir basura multimedia
