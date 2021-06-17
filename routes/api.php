@@ -16,7 +16,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware(['jwt', 'getRequest'])->group(function () {
+//Route::middleware(['jwt', 'getRequest'])->group(function () {
 
     Route::get('productos/cliente/{id}', [ProductoClienteController::class, 'index']);
 
@@ -32,8 +32,10 @@ Route::middleware(['jwt', 'getRequest'])->group(function () {
     Route::get('cliente-cupo', [FinanzaController::class, 'getCupo'])->name('cliente-cupo');
     Route::get('cliente-cartera', [FinanzaController::class, 'getCartera'])->name('cliente-cartera');
 
+
+
     //Agentes clientes routes
     
-});
+//});
 
 Route::post('/login', [AuthController::class, 'login']);

@@ -15,7 +15,7 @@ class OrdenPedido extends Model
     
    
     public function productosOrden(){
-        return $this->hasMany(Producto_Orden_Pedido::class,"Id_Orden_Pedido","Id_Orden_Pedido");
+        return $this->hasMany(ProductoOrdenPedido::class,"Id_Orden_Pedido","Id_Orden_Pedido");
     }
     public function remisiones(){
         return $this->hasMany(Remision::class,"Id_Orden_Pedido","Id_Orden_Pedido");

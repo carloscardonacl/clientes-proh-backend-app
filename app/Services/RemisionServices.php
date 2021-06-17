@@ -15,7 +15,7 @@ class RemisionServices
 
         foreach ($grupos as $KGrupo => $grupo) {
 
-            foreach ($productos as $KProducto => $producto) {
+            foreach ($productos as $KProducto => &$producto) {
                 if ($producto['Cantidad_Remision'] < $producto['Cantidad']) {
                     $inventarios = self::getInventario($producto['Id_Producto'], $grupo['Id_Grupo_Estiba']);
                     // var_dump($inventarios);
@@ -24,11 +24,11 @@ class RemisionServices
                         if ($producto['Cantidad_Remision'] < $producto['Cantidad']) {
                             $cantidad = 0;
                             if ($inventario['Cantidad'] > ($productos[$KProducto]['Cantidad'] - $productos[$KProducto]['Cantidad_Remision'])) {
-                                $cantidad = $productos[$KProducto]['Cantidad'] - $productos[$KProducto]['Cantidad_Remision'];
+                                $cantidad = $producto['Cantidad'] - $producto['Cantidad_Remision'];
                             } else {
                                 $cantidad = $inventario['Cantidad'];
                             }
-                            $productos[$KProducto]['Cantidad_Remision'] += $cantidad;
+                            $producto['Cantidad_Remision'] += $cantidad;
 
                             $inventarios[$KInventario]['Cantidad'] = $cantidad;
                             $inventarios[$KInventario]['Costo'] =  $productos[$KProducto]['Costo'];
